@@ -86,6 +86,8 @@ docrag-br/
 ├── .env.example
 ├── src/
 │   ├── config.py               # configuração central
+│   ├── ingest.py               # script de ingestão (python -m src.ingest)
+│   ├── rag.py                  # pipeline de consulta + resposta com citação
 │   ├── ingestion/
 │   │   ├── text_chunker.py     # texto → chunks por sentença
 │   │   ├── table_extractor.py  # tabelas → markdown

@@ -1,1 +1,7 @@
-Project Guide.md
+.env
+__pycache__/
+*.pyc
+data/chroma/
+data/sample_docs/*.pdf
+.venv/
+venv/
