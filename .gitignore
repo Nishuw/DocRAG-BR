@@ -5,3 +5,4 @@ data/chroma/
 data/sample_docs/*.pdf
 .venv/
 venv/
+PROGRESS.md

@@ -60,7 +60,7 @@ Resposta em streaming + citação [arquivo, pag. X]
 └──────────────────────────────────────────┘
       │
       ▼
-Chat (Streamlit)
+CLI rica no terminal (python -m src.cli)
 
 ┌──────────────────────────────────────────┐
 │   🕵️ AUDITORIA AUTÔNOMA (sem pergunta)    │
@@ -83,7 +83,7 @@ Chat (Streamlit)
 | Roteamento + reranking | LLM via OpenRouter |
 | Resposta final (streaming) | LLM via OpenRouter |
 | Auditoria numérica | Regex BR + matching contra chunks-fonte (local, determinístico) |
-| Interface | Streamlit |
+| Interface | **CLI rica (terminal-first, estilo Claude Code)** — Rich/TUI |
 
 ## Como rodar
 
@@ -104,9 +104,14 @@ python -m src.ingest
 #   --skip-vision  pula os gráficos (rápido, sem custo)
 #   --reset        apaga o índice antes de ingerir
 
-# 5. Abrir o chat
-streamlit run src/chat/app.py
+# 5. Abrir o cockpit no terminal
+python -m src.cli
 ```
+
+Dentro da CLI: pergunte em linguagem natural, ou use a paleta de comandos —
+`/audit` (auditoria autônoma), `/find` (busca semântica local), `/open N`
+(abre a página real do PDF com o trecho destacado), `/lang en|pt`, `/stats`
+(tokens e custo estimado da sessão), `/help`.
 
 ## Estrutura do repositório
 
@@ -131,8 +136,8 @@ docrag-br/
 │   ├── verification/
 │   │   ├── verifier.py         # auditoria numérica da resposta
 │   │   └── auditor.py          # auditoria autônoma: descobertas sem pergunta
+│   ├── cli.py                  # interface principal: cockpit no terminal
 │   └── chat/
-│       ├── app.py              # interface Streamlit
 │       └── pdf_preview.py      # grounding visual (página + highlight)
 ├── data/
 │   └── sample_docs/            # documentos de teste (B3/CVM)

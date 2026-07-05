@@ -5,6 +5,12 @@
 
 ---
 
+## -2. Rodada 4 (Dia 2, ~11h) — pivô de interface: terminal-first
+
+Streamlit **removido do produto** (preservado no histórico git, commit `f72f4a6`). Interface principal agora é uma **CLI rica** (`python -m src.cli`, Rich): cockpit de auditoria estilo Claude Code — header de plataforma, respostas em streaming com números marcados ✓/⚠ inline, barra de fidelidade, painéis de descobertas com cor por severidade, `/find` (explorador semântico local), `/open N` (abre a página real com highlight no visualizador do SO), `/lang en|pt`, `/stats` (tokens + custo estimado). Web UI virou proposta de arquitetura em `UX-DESIGN.md` (companion de visualização: Next.js + FastAPI + WebSockets). Racional: para jurados técnicos, terminal-first comunica plataforma, não chatbot.
+
+---
+
 ## -1. Rodada 3 (Dia 2, manhã) — "o analista autônomo que fala primeiro"
 
 Reposicionamento final: de "o RAG que audita a própria resposta" para **"o analista autônomo que audita o documento — e prova cada afirmação até o pixel"**.
