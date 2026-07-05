@@ -184,6 +184,14 @@ docrag-br/
     └── demo_video.mp4          # vídeo demo de 1 minuto
 ```
 
+## Testes
+
+O coração do produto — o verificador numérico (formatos BR, trimestres, citações, detecção de alucinação) e o parser do auditor — tem suíte própria:
+
+```bash
+python -m unittest discover tests -v
+```
+
 ## Por que a auditoria numérica importa
 
 O prompt de resposta exige reproduzir valores exatamente como na fonte — mas prompt é pedido, não garantia. A camada de verificação fecha o ciclo: extrai cada número da resposta (tolerante a formatos BR: `R$ 61.412`, `4,2%`, `61,4`), normaliza e procura nos chunks usados como fonte. O resultado aparece na interface como ✅ (confirmado no documento) ou ⚠️ (não localizado — confira antes de usar), com a taxa de fidelidade da resposta. **O sistema pega a própria alucinação em tempo real.**
