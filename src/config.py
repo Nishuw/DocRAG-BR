@@ -34,6 +34,10 @@ CHUNK_OVERLAP_SENTENCES = 1
 TOP_K_RETRIEVAL = 12   # candidatos do estagio 1
 TOP_K_FINAL = 4        # apos reranking
 
-# Vision: limitar imagens processadas por documento (custo/tempo na demo)
-MAX_IMAGES_PER_DOC = 10
-MIN_IMAGE_SIZE_PX = 120  # ignora icones/logos pequenos
+# Vision: paginas inteiras renderizadas para o Vision LLM.
+# Graficos de relatorios financeiros costumam ser desenhos VETORIAIS (nao
+# imagens embutidas), entao a unidade de processamento e a pagina renderizada.
+MAX_VISION_PAGES_PER_DOC = 10   # limite de paginas por documento (custo/tempo)
+MIN_IMAGE_SIZE_PX = 120         # imagem raster menor que isso nao conta como grafico
+MIN_CHART_PALETTE_COLORS = 4    # cores de preenchimento distintas para a pagina ser candidata
+VISION_PAGE_DPI = 150           # resolucao do render enviado ao Vision LLM

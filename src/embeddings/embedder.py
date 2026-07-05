@@ -22,6 +22,16 @@ def get_collection():
     )
 
 
+def reset_collection() -> None:
+    """Apaga a colecao (usado por `python -m src.ingest --reset`)."""
+    client = chromadb.PersistentClient(path=str(CHROMA_DIR))
+    try:
+        client.delete_collection(COLLECTION_NAME)
+    except Exception:  # noqa: BLE001 — colecao pode nao existir ainda
+        pass
+    get_collection.cache_clear()
+
+
 def _chunk_id(chunk: dict) -> str:
     raw = f"{chunk['source']}|{chunk['page']}|{chunk['content']}"
     return hashlib.sha1(raw.encode()).hexdigest()

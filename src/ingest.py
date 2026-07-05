@@ -6,7 +6,7 @@ import argparse
 import sys
 
 from src.config import SAMPLE_DOCS_DIR
-from src.embeddings.embedder import index_chunks
+from src.embeddings.embedder import index_chunks, reset_collection
 from src.ingestion.table_extractor import extract_table_chunks
 from src.ingestion.text_chunker import extract_text_chunks
 from src.ingestion.vision_processor import extract_image_chunks
@@ -40,7 +40,16 @@ def main() -> None:
         action="store_true",
         help="pula a descricao de graficos via Vision LLM (mais rapido, sem custo)",
     )
+    parser.add_argument(
+        "--reset",
+        action="store_true",
+        help="apaga o indice antes de ingerir (use apos mudar o formato dos chunks)",
+    )
     args = parser.parse_args()
+
+    if args.reset:
+        reset_collection()
+        print("Indice apagado — reingestao do zero.")
 
     SAMPLE_DOCS_DIR.mkdir(parents=True, exist_ok=True)
     pdfs = sorted(SAMPLE_DOCS_DIR.glob("*.pdf"))
