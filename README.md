@@ -89,29 +89,68 @@ CLI rica no terminal (python -m src.cli)
 
 Requer Python 3.11+.
 
+### 1. Criar e ativar o ambiente virtual
+
+**Windows (PowerShell):**
+```powershell
+python -m venv .venv
+.venv\Scripts\Activate.ps1
+```
+
+**Linux/macOS:**
 ```bash
-# 1. Instalar dependências
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+> Com o venv ativo, o prompt mostra `(.venv)` — todos os comandos abaixo
+> assumem isso.
+
+### 2. Instalar e configurar
+
+```bash
 pip install -r requirements.txt
 
-# 2. Configurar a chave da OpenRouter
-copy .env.example .env
+# chave da OpenRouter (https://openrouter.ai/keys — precisa de créditos)
+copy .env.example .env      # Linux/macOS: cp .env.example .env
 # edite .env e preencha OPENROUTER_API_KEY
+```
 
-# 3. Colocar PDFs de teste em data/sample_docs/
+### 3. Ingerir os documentos
 
-# 4. Ingerir os documentos (texto + tabelas + gráficos → vector store)
+Coloque os PDFs em `data/sample_docs/` e rode:
+
+```bash
 python -m src.ingest
 #   --skip-vision  pula os gráficos (rápido, sem custo)
 #   --reset        apaga o índice antes de ingerir
+```
 
-# 5. Abrir o cockpit no terminal
+### 4. Abrir a interface (CLI no terminal)
+
+```bash
 python -m src.cli
 ```
 
-Dentro da CLI: pergunte em linguagem natural, ou use a paleta de comandos —
-`/audit` (auditoria autônoma), `/find` (busca semântica local), `/open N`
-(abre a página real do PDF com o trecho destacado), `/lang en|pt`, `/stats`
-(tokens e custo estimado da sessão), `/help`.
+**A interface do DocRAG BR é o terminal** — um cockpit de auditoria, não um
+chatbot. Dentro da CLI: pergunte em linguagem natural, ou use a paleta de
+comandos:
+
+| Comando | O que faz |
+|---|---|
+| `<pergunta>` | resposta em streaming com todo número auditado ✓/⚠ |
+| `/audit` | auditoria autônoma: o sistema lê o documento e reporta descobertas verificadas |
+| `/find <texto>` | busca semântica no índice (local, sem custo de LLM) |
+| `/open N` | abre a evidência N: página real do PDF com o trecho destacado em amarelo |
+| `/index` | status do índice de conhecimento |
+| `/lang en\|pt` | idioma das respostas (números sempre no formato BR da fonte) |
+| `/stats` | tokens, custo estimado e tempo de LLM da sessão |
+| `/help` | paleta de comandos |
+
+**E no navegador?** Não há mais interface web — ela foi substituída pela CLI
+(decisão de produto: terminal-first, ver `UX-DESIGN.md`, que também traz a
+proposta do companion web de visualização com Next.js). A antiga interface
+Streamlit permanece no histórico git (commit `f72f4a6`) para referência.
 
 ## Estrutura do repositório
 
